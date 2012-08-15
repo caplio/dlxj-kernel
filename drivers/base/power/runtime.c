@@ -623,6 +623,7 @@ static int rpm_resume(struct device *dev, int rpmflags)
 #if defined(CONFIG_MACH_DELUXE_J)
 			dev->power.runtime_rpm_resume_footprint2 = 13;
 #endif
+			retval = 1;
 			goto no_callback;	
 		}
 		if ( log_enable == 1 )
@@ -799,7 +800,7 @@ static int rpm_resume(struct device *dev, int rpmflags)
 #if defined(CONFIG_MACH_DELUXE_J)
 	dev->power.runtime_rpm_resume_footprint2 = 25;
 #endif
-	if (!retval) {
+	if (retval >= 0) {
 		if ( log_enable == 1 )
 			dev_info(dev, "%s[%d] rpm_idle+\n", __func__, __LINE__);
 		rpm_idle(dev, RPM_ASYNC);
