@@ -403,6 +403,9 @@ on boot
     insmod /system/lib/modules/bcmdhd.ko
     exec /system/bin/insmod /system/lib/modules/bcmdhd.ko
 
+    #insmod /system/lib/modules/cpufreq_stats.ko
+    #exec /system/bin/insmod /system/lib/modules/cpufreq_stats.ko
+
 
     write /proc/sys/net/ipv6/conf/p2p0/disable_ipv6 1
 
