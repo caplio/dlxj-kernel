@@ -10,7 +10,7 @@ rm ./boot.img-ramdisk/lib/modules/*
 find -name '*.ko' ! -path "*boot.img-ramdisk*" -exec cp -av {} ./boot.img-ramdisk/lib/modules \;
 
 # copy prima_wlan_ko to prima_wlan.ko
-cp -av ./boot.img-ramdisk/vendor/bcmdhd.ko ./boot.img-ramdisk/lib/modules/bcmdhd.ko
+#cp -av ./boot.img-ramdisk/vendor/bcmdhd.ko ./boot.img-ramdisk/lib/modules/bcmdhd.ko
 
 # ramdisk copy to tmp dir
 mkdir tmp

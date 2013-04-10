@@ -111,24 +111,24 @@ on emmc-fs
    export EXTERNAL_STORAGE4 /storage/usb
    export EXTERNAL_STORAGE5 /storage/usb
 
-    mount tmpfs tmpfs /system/lib/modules    
-    symlink /lib/modules/eeprom_93cx6.ko /system/lib/modules/eeprom_93cx6.ko 
-    symlink /lib/modules/test-iosched.ko /system/lib/modules/test-iosched.ko
-    symlink /lib/modules/spidev.ko /system/lib/modules/spidev.ko
-    symlink /lib/modules/scsi_wait_scan.ko /system/lib/modules/scsi_wait_scan.ko
-    symlink /lib/modules/msm-buspm-dev.ko /system/lib/modules/msm-buspm-dev.ko
-    symlink /lib/modules/bcmdhd.ko /system/lib/modules/bcmdhd.ko
-    symlink /lib/modules/qce40.ko /system/lib/modules/qce40.ko
-    symlink /lib/modules/qcedev.ko /system/lib/modules/qcedev.ko
-    symlink /lib/modules/lcd.ko /system/lib/modules/lcd.ko
-    symlink /lib/modules/ansi_cprng.ko /system/lib/modules/ansi_cprng.ko
-    symlink /lib/modules/qcrypto.ko /system/lib/modules/qcrypto.ko
-    symlink /lib/modules/reset_modem.ko /system/lib/modules/reset_modem.ko
-    symlink /lib/modules/ks8851.ko /system/lib/modules/ks8851.ko
-    symlink /lib/modules/bluetooth-power.ko /system/lib/modules/bluetooth-power.ko
-    symlink /lib/modules/gspca_main.ko /system/lib/modules/gspca_main.ko
-    symlink /lib/modules/evbug.ko /system/lib/modules/evbug.ko
-
+   mount tmpfs tmpfs /system/lib/modules    
+   symlink /lib/modules/eeprom_93cx6.ko /system/lib/modules/eeprom_93cx6.ko 
+   symlink /lib/modules/test-iosched.ko /system/lib/modules/test-iosched.ko
+   symlink /lib/modules/spidev.ko /system/lib/modules/spidev.ko
+   symlink /lib/modules/scsi_wait_scan.ko /system/lib/modules/scsi_wait_scan.ko
+   symlink /lib/modules/msm-buspm-dev.ko /system/lib/modules/msm-buspm-dev.ko
+   symlink /lib/modules/bcmdhd.ko /system/lib/modules/bcmdhd.ko
+   symlink /lib/modules/qce40.ko /system/lib/modules/qce40.ko
+   symlink /lib/modules/qcedev.ko /system/lib/modules/qcedev.ko
+   symlink /lib/modules/lcd.ko /system/lib/modules/lcd.ko
+   symlink /lib/modules/ansi_cprng.ko /system/lib/modules/ansi_cprng.ko
+   symlink /lib/modules/qcrypto.ko /system/lib/modules/qcrypto.ko
+   symlink /lib/modules/reset_modem.ko /system/lib/modules/reset_modem.ko
+   symlink /lib/modules/ks8851.ko /system/lib/modules/ks8851.ko
+   symlink /lib/modules/bluetooth-power.ko /system/lib/modules/bluetooth-power.ko
+   symlink /lib/modules/gspca_main.ko /system/lib/modules/gspca_main.ko
+   symlink /lib/modules/evbug.ko /system/lib/modules/evbug.ko
+   
 on init
     # for Invense MPU3050
     chmod 0664 /dev/mpu
@@ -401,6 +401,8 @@ on boot
     # Load bcmdhd.ko while booting
     chmod 0444 /system/lib/modules/bcmdhd.ko
     insmod /system/lib/modules/bcmdhd.ko
+    exec /system/bin/insmod /system/lib/modules/bcmdhd.ko
+
 
     write /proc/sys/net/ipv6/conf/p2p0/disable_ipv6 1
 
