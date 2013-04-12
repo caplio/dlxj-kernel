@@ -16,7 +16,7 @@ find -name '*.ko' ! -path "*boot.img-ramdisk*" -exec cp -av {} ./boot.img-ramdis
 mkdir tmp
 cp -pr ./boot.img-ramdisk ./tmp/boot.img-ramdisk
 # rm .gitignore
-#find ./tmp -name '*.gitignore' -print | xargs rm
+find ./tmp/boot.img-ramdisk -name '*.gitignore' -print | xargs rm
 
 # create boot image >> output dir
 ./build-tools/repack-bootimg.pl arch/arm/boot/zImage ./tmp/boot.img-ramdisk ./output/boot`date +%m%d`-`cat .version`.img

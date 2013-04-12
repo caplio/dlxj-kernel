@@ -128,6 +128,7 @@ on emmc-fs
    symlink /lib/modules/bluetooth-power.ko /system/lib/modules/bluetooth-power.ko
    symlink /lib/modules/gspca_main.ko /system/lib/modules/gspca_main.ko
    symlink /lib/modules/evbug.ko /system/lib/modules/evbug.ko
+   symlink /lib/modules/cpufreq_stats.ko /system/lib/modules/cpufreq_stats.ko
    
 on init
     # for Invense MPU3050
@@ -403,8 +404,7 @@ on boot
     insmod /system/lib/modules/bcmdhd.ko
     exec /system/bin/insmod /system/lib/modules/bcmdhd.ko
 
-    #insmod /system/lib/modules/cpufreq_stats.ko
-    #exec /system/bin/insmod /system/lib/modules/cpufreq_stats.ko
+    exec /system/bin/insmod /system/lib/modules/cpufreq_stats.ko
 
 
     write /proc/sys/net/ipv6/conf/p2p0/disable_ipv6 1
