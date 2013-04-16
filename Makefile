@@ -195,7 +195,7 @@ export KBUILD_BUILDHOST := $(SUBARCH)
 ARCH		?= $(SUBARCH)
 CROSS_COMPILE	?= $(CONFIG_CROSS_COMPILE:"%"=%)
 ARCH		:= arm
-CROSS_COMPILE	:= arm-eabi-
+CROSS_COMPILE	:= /opt/toolchains/gcc-linaro-arm-linux-gnueabihf-4.7-2013.02-01-20130221_linux/bin/arm-linux-gnueabihf-
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
@@ -353,10 +353,20 @@ CC		= $(srctree)/scripts/gcc-wrapper.py $(REAL_CC)
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-CFLAGS_MODULE   =
-AFLAGS_MODULE   =
+CFLAGS_MODULE   = -fgcse-lm -fgcse-sm -fsched-spec-load -fforce-addr \
+		  -ffast-math -fsingle-precision-constant \
+                  -fmodulo-sched -fmodulo-sched-allow-regmoves \
+                  -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
+                  -march=armv7-a -mfpu=neon -ftree-vectorize
+CFLAGS_MODULE  += -mtune=cortex-a15
+AFLAGS_MODULE   = 
 LDFLAGS_MODULE  =
-CFLAGS_KERNEL	=
+CFLAGS_KERNEL	= -fgcse-lm -fgcse-sm -fsched-spec-load -fforce-addr \
+                  -ffast-math -fsingle-precision-constant \
+                  -fmodulo-sched -fmodulo-sched-allow-regmoves \
+                  -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
+                  -march=armv7-a -mfpu=neon -ftree-vectorize
+CFLAGS_KERNEL  += -mtune=cortex-a15
 AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
