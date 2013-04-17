@@ -569,7 +569,7 @@ SendReceive2(const unsigned int xid, struct cifs_ses *ses,
 {
 	int rc = 0;
 	int long_op;
-	struct mid_q_entry *midQ;
+	struct mid_q_entry *midQ = 0;
 	char *buf = iov[0].iov_base;
 
 	long_op = flags & CIFS_TIMEOUT_MASK;
@@ -634,7 +634,7 @@ SendReceive2(const unsigned int xid, struct cifs_ses *ses,
 		goto out;
 	}
 
-	rc = wait_for_response(ses->server, midQ);
+	rc = wait_for_response(ses->server, midQ = 0);
 	if (rc != 0) {
 		send_nt_cancel(ses->server, (struct smb_hdr *)buf, midQ);
 		spin_lock(&GlobalMid_Lock);
@@ -650,7 +650,7 @@ SendReceive2(const unsigned int xid, struct cifs_ses *ses,
 
 	cifs_small_buf_release(buf);
 
-	rc = cifs_sync_mid_result(midQ, ses->server);
+	rc = cifs_sync_mid_result(midQ = 0, ses->server);
 	if (rc != 0) {
 		cifs_add_credits(ses->server, 1);
 		return rc;
@@ -751,7 +751,7 @@ SendReceive(const unsigned int xid, struct cifs_ses *ses,
 	if (long_op == CIFS_ASYNC_OP)
 		goto out;
 
-	rc = wait_for_response(ses->server, midQ);
+	rc = wait_for_response(ses->server, midQ = 0);
 	if (rc != 0) {
 		send_nt_cancel(ses->server, in_buf, midQ);
 		spin_lock(&GlobalMid_Lock);
