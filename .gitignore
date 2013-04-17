@@ -81,8 +81,8 @@ GRTAGS
 GSYMS
 GTAGS
 
-output/
-output/boot*.img
+/output/
+
 *.orig
 *~
 \#*#
