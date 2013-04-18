@@ -13,10 +13,11 @@
 
 #include <linux/init.h>
 #include <linux/platform_device.h>
-#include <linux/msm_kgsl.h>
+#include <mach/kgsl.h>
 #include <mach/msm_bus_board.h>
 #include <mach/board.h>
 #include <mach/msm_dcvs.h>
+#include <mach/socinfo.h>
 
 #include "devices.h"
 #include "board-deluxe_j.h"
@@ -329,12 +330,17 @@ static struct kgsl_device_platform_data kgsl_3d0_pdata = {
 			.io_fraction = 100,
 		},
 		{
+			.gpu_freq = 128000000,
+			.bus_freq = 1,
+			.io_fraction = 100,
+		},
+		{
 			.gpu_freq = 27000000,
 			.bus_freq = 0,
 		},
 	},
-	.init_level = 2,
-	.num_levels = 4,
+	.init_level = 1,
+	.num_levels = 5,
 	.set_grp_async = NULL,
 	.idle_timeout = HZ/10,
 	.nap_allowed = true,
@@ -348,7 +354,7 @@ static struct kgsl_device_platform_data kgsl_3d0_pdata = {
 	.core_info = &grp3d_core_info,
 };
 
-static struct platform_device device_kgsl_3d0 = {
+struct platform_device device_kgsl_3d0 = {
 	.name = "kgsl-3d0",
 	.id = 0,
 	.num_resources = ARRAY_SIZE(kgsl_3d0_resources),
@@ -508,7 +514,15 @@ struct platform_device msm_kgsl_2d1 = {
 	},
 };
 
-void __init deluxe_j_init_gpu(void)
+void __init apq8064_init_gpu(void)
 {
+	unsigned int version = socinfo_get_version();
+
+	if ((SOCINFO_VERSION_MAJOR(version) == 1) &&
+			(SOCINFO_VERSION_MINOR(version) == 1))
+		kgsl_3d0_pdata.chipid = ADRENO_CHIPID(3, 2, 0, 1);
+	else
+		kgsl_3d0_pdata.chipid = ADRENO_CHIPID(3, 2, 0, 0);
+
 	platform_device_register(&device_kgsl_3d0);
 }
