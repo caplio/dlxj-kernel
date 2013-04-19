@@ -17,6 +17,7 @@ mkdir tmp
 cp -pr ./boot.img-ramdisk ./tmp/boot.img-ramdisk
 # rm .gitignore
 find ./tmp/boot.img-ramdisk -name '*.gitignore' -print | xargs rm
+chmod 750 ./tmp/boot.img-ramdisk/init.*
 
 # create boot image >> output dir
 ./build-tools/repack-bootimg.pl arch/arm/boot/zImage ./tmp/boot.img-ramdisk ./output/boot`date +%m%d`-`cat .version`.img
