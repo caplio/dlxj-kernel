@@ -275,11 +275,7 @@ static struct scalable scalable_8064[] = {
                         .hfpll_base      = MSM_HFPLL_BASE + 0x200,
                         .aux_clk_sel     = MSM_ACC0_BASE  + 0x014,
                         .l2cpmr_iaddr    = L2CPUCPMR_IADDR,
-#ifdef CONFIG_CPU_OVERCLOCK
-			.vreg[VREG_CORE] = { "krait0",     1350000 },
-#else
 			.vreg[VREG_CORE] = { "krait0",     1300000 },
-#endif
 			.vreg[VREG_MEM]  = { "krait0_mem", 1150000,
 					     RPM_VREG_VOTER1,
 					     RPM_VREG_ID_PM8921_L24 },
@@ -295,11 +291,7 @@ static struct scalable scalable_8064[] = {
 			.hfpll_base      = MSM_HFPLL_BASE + 0x240,
 			.aux_clk_sel     = MSM_ACC1_BASE  + 0x014,
 			.l2cpmr_iaddr    = L2CPUCPMR_IADDR,
-#ifdef CONFIG_CPU_OVERCLOCK
-			.vreg[VREG_CORE] = { "krait1",     1350000 },
-#else
 			.vreg[VREG_CORE] = { "krait1",     1300000 },
-#endif
 			.vreg[VREG_MEM]  = { "krait1_mem", 1150000,
 					     RPM_VREG_VOTER2,
 					     RPM_VREG_ID_PM8921_L24 },
@@ -314,11 +306,7 @@ static struct scalable scalable_8064[] = {
 			.hfpll_base      = MSM_HFPLL_BASE + 0x280,
 			.aux_clk_sel     = MSM_ACC2_BASE  + 0x014,
 			.l2cpmr_iaddr    = L2CPUCPMR_IADDR,
-#ifdef CONFIG_CPU_OVERCLOCK
-			.vreg[VREG_CORE] = { "krait2",     1350000 },
-#else					     
 			.vreg[VREG_CORE] = { "krait2",     1300000 },
-#endif
 			.vreg[VREG_MEM]  = { "krait2_mem", 1150000,
 					     RPM_VREG_VOTER4,
 					     RPM_VREG_ID_PM8921_L24 },
@@ -333,11 +321,7 @@ static struct scalable scalable_8064[] = {
 			.hfpll_base      = MSM_HFPLL_BASE + 0x2C0,
 			.aux_clk_sel     = MSM_ACC3_BASE  + 0x014,
 			.l2cpmr_iaddr    = L2CPUCPMR_IADDR,
-#ifdef CONFIG_CPU_OVERCLOCK
-			.vreg[VREG_CORE] = { "krait3",     1350000 },
-#else
 			.vreg[VREG_CORE] = { "krait3",     1300000 },
-#endif
 			.vreg[VREG_MEM]  = { "krait3_mem", 1150000,
 					     RPM_VREG_VOTER5,
 					     RPM_VREG_ID_PM8921_L24 },
@@ -670,7 +654,6 @@ static struct l2_level l2_freq_tbl_8064[] = {
 	[15] = { { 1080000, HFPLL, 1, 0, 0x28 }, 1150000, 1150000, 7 },
 	[16] = { { 1134000, HFPLL, 1, 0, 0x2A }, 1150000, 1150000, 7 },
 	[17] = { { 1242000, HFPLL, 1, 0, 0x2E }, 1150000, 1150000, 8 },
-	[18] = { { 1350000, HFPLL, 1, 0, 0x32 }, 1150000, 1150000, 8 },
 	{}
 };
 
@@ -705,7 +688,6 @@ static struct acpu_level acpu_freq_tbl_8064_slow[] = {
 	{ 1, {  1512000, HFPLL, 1, 0, 0x38 }, L2(16), 1250000 },
 	{ 1, {  1620000, HFPLL, 1, 0, 0x3C }, L2(17), 1275000 },
 	{ 1, {  1728000, HFPLL, 1, 0, 0x40 }, L2(17), 1300000 },
-	{ 1, {  1782000, HFPLL, 1, 0, 0x42 }, L2(18), 1325000 },
 #endif
 	{ 0, { 0 } }
 };
@@ -740,7 +722,6 @@ static struct acpu_level acpu_freq_tbl_8064_nom[] = {
 	{ 1, {  1512000, HFPLL, 1, 0, 0x38 }, L2(16), 1200000 },
 	{ 1, {  1620000, HFPLL, 1, 0, 0x3C }, L2(17), 1250000 },
 	{ 1, {  1728000, HFPLL, 1, 0, 0x40 }, L2(17), 1275000 },
-	{ 1, {  1782000, HFPLL, 1, 0, 0x42 }, L2(18), 1300000 },
 #endif
 	{ 0, { 0 } }
 };
@@ -775,7 +756,6 @@ static struct acpu_level acpu_freq_tbl_8064_fast[] = {
 	{ 1, {  1512000, HFPLL, 1, 0, 0x38 }, L2(16), 1150000 },
 	{ 1, {  1620000, HFPLL, 1, 0, 0x3C }, L2(17), 1200000 },
 	{ 1, {  1728000, HFPLL, 1, 0, 0x40 }, L2(17), 1250000 },
-	{ 1, {  1782000, HFPLL, 1, 0, 0x42 }, L2(18), 1300000 },
 #endif
 	{ 0, { 0 } }
 };
@@ -1602,7 +1582,7 @@ void acpuclk_set_vdd(unsigned int khz, int vdd_uv) {
 #endif /* CONFIG_CPU_VOTALGE_TABLE */
 
 #ifdef CONFIG_CPU_FREQ_MSM
-static struct cpufreq_frequency_table freq_table[NR_CPUS][37]; 
+static struct cpufreq_frequency_table freq_table[NR_CPUS][35]; 
 
 static void __init cpufreq_table_init(void)
 {
