@@ -247,6 +247,12 @@ static struct platform_device nm32x_62x_tsi_device = {
 enum {
        SX150X_EPM,
 };
+#ifdef CONFIG_CMDLINE_OPTIONS
+	/* setters for cmdline_gpu */
+	int set_kgsl_3d0_freq(unsigned int freq0, unsigned int freq1);
+	int set_kgsl_2d0_freq(unsigned int freq);
+	int set_kgsl_2d1_freq(unsigned int freq);
+#endif
 
 #ifdef CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE
 int set_two_phase_freq(int cpufreq);
@@ -5112,7 +5118,12 @@ static void __init deluxe_j_cdp_init(void)
                 set_two_phase_freq(1134000);
 #endif
 
-	
+#ifdef CONFIG_CMDLINE_OPTIONS
+	/* setters for cmdline_gpu */
+	set_kgsl_3d0_freq(cmdline_3dgpu[0], cmdline_3dgpu[1]);
+	set_kgsl_2d0_freq(cmdline_2dgpu);
+	set_kgsl_2d1_freq(cmdline_2dgpu);
+#endif
 	
 	if (!(board_mfg_mode() == 6 || board_mfg_mode() == 7))
 		deluxe_j_add_usb_devices();
