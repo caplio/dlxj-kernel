@@ -37,7 +37,7 @@ union ktime {
 #endif
 };
 
-typedef union ktime ktime_t;i		/* Kill this */	
+typedef union ktime ktime_t;		/* Kill this */	
 
 
 #if (BITS_PER_LONG == 64) || defined(CONFIG_KTIME_SCALAR)
