@@ -30,8 +30,10 @@ struct msm_serial_hs_platform_data {
 	int uart_rfr_gpio;
 	int userid; 
 	
-	unsigned char bt_wakeup_pin;	
-	unsigned char host_wakeup_pin;	
+#ifdef CONFIG_MSM_SERIAL_HS_BRCM
+  unsigned char bt_wakeup_pin;
+  unsigned char host_wakeup_pin;
+#endif 
 };
 
 extern void imc_msm_hs_request_clock_on(struct uart_port *uport);
