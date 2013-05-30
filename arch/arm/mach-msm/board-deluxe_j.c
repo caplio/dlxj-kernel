@@ -892,20 +892,16 @@ static struct platform_device mdm_8064_device = {
 
 #ifdef CONFIG_BT
 static struct msm_serial_hs_platform_data msm_uart_dm6_pdata = {
+	.inject_rx_on_wakeup = 0,
 
 	.config_gpio    = 4,
-	.uart_tx_gpio    = BT_UART_TX,
-	.uart_rx_gpio    = BT_UART_RX,
-	.uart_cts_gpio    = BT_UART_CTSz,
-	.uart_rfr_gpio    = BT_UART_RTSz,
-
-#ifdef CONFIG_MSM_SERIAL_HS_BRCM
-	.inject_rx_on_wakeup = 0,
+	.uart_tx_gpio    = BT_UART_TX_XC,
+	.uart_rx_gpio    = BT_UART_RX_XC,
+	.uart_cts_gpio    = BT_UART_CTSz_XC,
+	.uart_rfr_gpio    = BT_UART_RTSz_XC, 
 	
 	.bt_wakeup_pin = PM8921_GPIO_PM_TO_SYS(BT_WAKE),
 	.host_wakeup_pin = PM8921_GPIO_PM_TO_SYS(BT_HOST_WAKE),
-#endif
-
 };
 
 static struct platform_device deluxe_j_rfkill = {
