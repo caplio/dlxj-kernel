@@ -6,6 +6,7 @@
 ## delete *.ko files
 rm ./ramdisk/lib/modules/*
 
+tar zxvf ./ramdisk.tgz ./
 # copy *.ko file to <ramdisk>/lib/modules
 find -name '*.ko' ! -path "*boot.img-ramdisk*" -exec cp -av {} ./ramdisk/lib/modules \;
 
