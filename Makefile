@@ -195,7 +195,8 @@ export KBUILD_BUILDHOST := $(SUBARCH)
 ARCH		?= $(SUBARCH)
 CROSS_COMPILE	?= $(CONFIG_CROSS_COMPILE:"%"=%)
 ARCH		:= arm
-CROSS_COMPILE	:= /opt/toolchains/gcc-linaro-arm-linux-gnueabihf-4.7-2013.02-01-20130221_linux/bin/arm-linux-gnueabihf-
+#CROSS_COMPILE	:= /opt/toolchains/gcc-linaro-arm-linux-gnueabihf-4.7-2013.02-01-20130221_linux/bin/arm-linux-gnueabihf-
+CROSS_COMPILE	:= /opt/toolchains/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux/bin/arm-linux-gnueabihf-
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
@@ -353,23 +354,22 @@ CC		= $(srctree)/scripts/gcc-wrapper.py $(REAL_CC)
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-CFLAGS_MODULE   = -fgcse-lm -fgcse-sm -fsched-spec-load -fforce-addr \
-		  -ffast-math -fsingle-precision-constant \
-                  -fmodulo-sched -fmodulo-sched-allow-regmoves \
-                  -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
-                  -march=armv7-a -mfpu=neon -ftree-vectorize
-CFLAGS_MODULE  += -mtune=cortex-a15
-AFLAGS_MODULE   = 
-LDFLAGS_MODULE  =
-CFLAGS_KERNEL	= -fgcse-lm -fgcse-sm -fsched-spec-load -fforce-addr \
-                  -ffast-math -fsingle-precision-constant \
-                  -fmodulo-sched -fmodulo-sched-allow-regmoves \
-                  -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
-                  -march=armv7-a -mfpu=neon -ftree-vectorize
-CFLAGS_KERNEL  += -mtune=cortex-a15
-AFLAGS_KERNEL	=
-CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
+MODFLAGS	= -DMODULE -fgcse-lm -fgcse-sm -fsched-spec-load \
+                  -fforce-addr -ffast-math -fsingle-precision-constant \
+                  -mtune=cortex-a15 -mcpu=cortex-a15 -mfpu=neon -mfpu=neon \
+                  -ftree-vectorize -funswitch-loops -funroll-loops
+CFLAGS_MODULE   = $(MODFLAGS)
+AFLAGS_MODULE   = $(MODFLAGS)
 
+LDFLAGS_MODULE  = -T $(srctree)/scripts/module-common.lds
+
+CFLAGS_KERNEL	= -mcpu=cortex-a15 -mfpu=neon -ftree-vectorize -funroll-loops \
+                  -funswitch-loops -fgcse-lm -fgcse-sm -fsched-spec-load \
+                  -fforce-addr -ffast-math -fsingle-precision-constant
+AFLAGS_KERNEL	= -mcpu=cortex-a15 -mfpu=neon -ftree-vectorize -funroll-loops \
+                  -funswitch-loops -fgcse-lm -fgcse-sm -fsched-spec-load \
+                  -fforce-addr -ffast-math -fsingle-precision-constant
+CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
 # Use LINUXINCLUDE when you must reference the include/ directory.
 # Needed to be compatible with the O= option

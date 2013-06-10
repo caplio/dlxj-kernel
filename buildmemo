@@ -2,12 +2,16 @@
 
 1.download linaro
 
- $ wget --no-check-certificate "https://launchpad.net/linaro-toolchain-binaries/trunk/4.7/+download/gcc-linaro-arm-arm-linux-gnueabihf-4.7-2013.02 01-20130221.tar.bz2"
+ Update Linaro 4.8
+ $ wget --no-check-certificate "http://releases.linaro.org/13.05/components/toolchain/binaries/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.bz2"
+
+ # $ wget --no-check-certificate "https://launchpad.net/linaro-toolchain-binaries/trunk/4.7/+download/gcc-linaro-arm-arm-linux-gnueabihf-4.7-2013.02 01-20130221.tar.bz2"
 
 2. move to CROSCOMPLIER PATH
 
  ex.
- $ /opt/toolchains/gcc-linaro-arm-linux-gnueabihf-4.7-2013.02-01-20130221_linux/bin/arm-linux-gnueabihf-
+ $ /opt/toolchains/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux/bin/arm-linux-gnueabihf-
+ #$ /opt/toolchains/gcc-linaro-arm-linux-gnueabihf-4.7-2013.02-01-20130221_linux/bin/arm-linux-gnueabihf-
 
 3. make defconfig
 
